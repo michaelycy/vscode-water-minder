@@ -1,0 +1,37 @@
+{
+  "name": "vscode-water-minder",
+  "version": "1.0.0",
+  "displayName": "vscode-water-minder",
+  "description": "HelloWorld example for VS Code",
+  "publisher": "michaely",
+  "engines": {
+    "vscode": "^1.37.0"
+  },
+  "categories": ["Other"],
+  "activationEvents": ["onCommand:extension.helloWorld"],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "extension.helloWorld",
+        "title": "Hello World"
+      }
+    ]
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "lint": "tslint -p ./",
+    "watch": "tsc -watch -p ./"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^12.7.2",
+    "@types/vscode": "^1.37.0",
+    "tslint": "^5.18.0",
+    "tslint-config-prettier": "^1.18.0",
+    "typescript": "^3.5.3"
+  }
+}
