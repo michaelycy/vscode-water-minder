@@ -1,22 +1,48 @@
 {
-  "name": "vscode-water-minder",
-  "version": "1.0.0",
-  "displayName": "vscode-water-minder",
-  "description": "HelloWorld example for VS Code",
+  "name": "water-minder",
+  "version": "0.0.1",
+  "displayName": "water-minder",
+  "description": "一个提醒大家喝水的vscode小插件",
+  "icon": "water_200x200.png",
   "publisher": "michaely",
+  "repository": {
+    "type": "github",
+    "url": "https://github.com/michaelycy/vscode-water-minder.git"
+  },
   "engines": {
     "vscode": "^1.37.0"
   },
   "categories": ["Other"],
-  "activationEvents": ["onCommand:extension.helloWorld"],
+  "activationEvents": [
+    "onCommand: ['waterMinder.showReminderInfo','waterMinder.test']",
+    "*"
+  ],
   "main": "./out/extension.js",
   "contributes": {
     "commands": [
       {
-        "command": "extension.helloWorld",
-        "title": "Hello World"
+        "command": "waterMinder.showReminderInfo",
+        "title": "展示水之守护者",
+        "category": "Minder"
+      },
+      {
+        "command": "waterMinder.test",
+        "title": "测试cowsay",
+        "category": "Minder"
       }
-    ]
+    ],
+    "configuration": {
+      "type": "object",
+      "title": "test config",
+      "properties": {
+        "water-minder.reminderInterval": {
+          "type": "number",
+          "default": 60,
+          "minimum": 1,
+          "description": "展示提醒饮水的时间间隔（分钟）"
+        }
+      }
+    }
   },
   "scripts": {
     "vscode:prepublish": "npm run compile",
@@ -30,8 +56,12 @@
   "devDependencies": {
     "@types/node": "^12.7.2",
     "@types/vscode": "^1.37.0",
+    "ts-node": "^8.3.0",
     "tslint": "^5.18.0",
     "tslint-config-prettier": "^1.18.0",
     "typescript": "^3.5.3"
+  },
+  "dependencies": {
+    "cowsay": "^1.4.0"
   }
 }
