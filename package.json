@@ -12,7 +12,9 @@
   "engines": {
     "vscode": "^1.37.0"
   },
-  "categories": ["Other"],
+  "categories": [
+    "Other"
+  ],
   "activationEvents": [
     "onCommand: ['waterMinder.showReminderInfo','waterMinder.test']",
     "*"

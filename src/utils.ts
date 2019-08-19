@@ -27,4 +27,11 @@ export default class Utils {
   public static reloadWindow() {
     return vscode.commands.executeCommand('workbench.action.reloadWindow');
   }
+
+  /**
+   * 放大输出面板
+   */
+  public  static enlargeOutput(){
+    return  vscode.commands.executeCommand('workbench.action.toggleMaximizedPanel');
+  }
 }

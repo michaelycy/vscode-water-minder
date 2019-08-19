@@ -1,60 +1,16 @@
 import * as vscode from 'vscode';
-// import Asset from './asset';
-const Asset = {} as any;
-
+import * as cowsay from 'cowsay';
+import { get as getProvider } from './provider';
+const name: string = getProvider('cowsay')[0];
 export class ReminderView {
-  private static panel?: vscode.WebviewPanel;
+  public static showOutput(say: string = '代码写久了，喝杯水休息一下~') {
+    const uri = vscode.Uri.parse(`${name}: ${say}`);
 
-  public static show(context: vscode.ExtensionContext) {
-    const asset: any = new Asset(context);
-
-    const imagePath = asset.getImageUri();
-    const title = asset.getTitle();
-    const content = asset.getContent();
-
-    vscode.window.showInformationMessage('水乃生命之源', { modal: true }, '知道了');
-
-    if (this.panel) {
-      this.panel.webview.html = this.generateHtml(imagePath, title, content);
-      this.panel.reveal();
-    } else {
-      this.panel = vscode.window.createWebviewPanel(
-        'zyl',
-        '朱一龙',
-        vscode.ViewColumn.Two,
-        {
-          enableScripts: true,
-          retainContextWhenHidden: true
-        }
-      );
-      this.panel.webview.html = this.generateHtml(imagePath, title, content);
-      this.panel.onDidDispose(() => {
-        this.panel = undefined;
-      });
-    }
-  }
-
-  protected static generateHtml(
-    imagePath: vscode.Uri | string,
-    title: string,
-    content: string
-  ): string {
-    const html = `<!DOCTYPE html>
-        <html lang="en">
-        <head>
-            <meta charset="UTF-8">
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>朱一龙</title>
-        </head>
-        <body>
-            <div><h1>${title}</h1></div>
-            <div>
-                <p>${content}</p>
-            </div>
-            <div><img src="${imagePath}"></div>
-        </body>
-        </html>`;
-
-    return html;
+    // 创建面板
+    const outputChannel = vscode.window.createOutputChannel('water');
+    //  清空当前output面板
+    outputChannel.clear();
+    outputChannel.append(cowsay.say({ text: uri.path, r: true }));
+    outputChannel.show();
   }
 }

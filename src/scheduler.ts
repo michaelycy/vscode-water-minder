@@ -1,15 +1,14 @@
 import * as vscode from 'vscode';
 import Utils from './utils';
-import { extensionName } from './config';
-
-const ReminderView = {} as any;
+import { extensionName, languages } from './config';
+import { ReminderView } from './view';
 
 export class Scheduler {
   private workspaceConfig!: vscode.WorkspaceConfiguration;
-  private context!: vscode.ExtensionContext;
+  // private context!: vscode.ExtensionContext;
 
   constructor(context: vscode.ExtensionContext) {
-    this.context = context;
+    // this.context = context;
     this.workspaceConfig = Utils.getConfiguration();
   }
 
@@ -17,9 +16,13 @@ export class Scheduler {
    * 开始监听
    */
   public start() {
-    setInterval(() => {
-      ReminderView.show(this.context);
-    }, 1000 * 60 * this.workspaceConfig.get<number>('reminderInterval', 60));
+    const timeout = 1000 * 60 * this.workspaceConfig.get<number>('reminderInterval', 60);
+
+    setInterval(async () => {
+      ReminderView.showOutput(languages[Math.floor(Math.random() * 3)]);
+
+      Utils.enlargeOutput();
+    }, timeout);
   }
 
   /**
